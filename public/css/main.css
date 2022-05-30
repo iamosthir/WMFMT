@@ -1,0 +1,62 @@
+
+.title {
+    font-size: 35px;
+    font-weight: bold;
+    margin-top: 100px;
+}
+
+.custom-form-card{
+    width: 100%;
+    padding: 25px 35px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 15px;
+    margin-top: 25px;
+}
+
+.title2{
+    font-size: 18px;
+    color: rgb(100, 100, 165);
+    font-weight: bold;
+}
+
+.myForm label{
+    margin-bottom: 15px;
+}
+
+.error-banner{
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 135px;
+}
+
+.error-banner h3{
+    font-size: 35px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.error-banner img{
+    width: 70%;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+
+.success img{
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.success h3{
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 720px){
+    .error-banner img{
+        width: 100%;
+    }
+}
