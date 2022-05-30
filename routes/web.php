@@ -54,6 +54,9 @@ Route::group(["prefix"=> "customer","middleware"=>"auth:customer"],function(){
         // Get customer machines list
         Route::get("/customer-machine-list","CustomerController@getMachineList");
 
+        // search customer machines
+        Route::get('/search-machines',"CustomerController@searchMachines");
+
     });
     
 });

@@ -149,7 +149,7 @@ if (document.getElementById("register-form"))
 
 
 // Customer machine list
-const csutomerApi = "/customer/api/";
+const customerApi = "/customer/api/";
 if(document.getElementById("myMachines"))
 {
     const customerMachines = new Vue({
@@ -159,11 +159,15 @@ if(document.getElementById("myMachines"))
                 paginateData: {},
                 machines: [],
                 isLoading: true,
+                isSearching: false,
+                searchText: "",
+                searchedMachines: [],
+
             }
         },
         methods: {
-            getMachineList() {
-                axios.get(csutomerApi+"customer-machine-list").then(resp=>{
+            getMachineList(page = 1) {
+                axios.get(customerApi+"customer-machine-list/?page="+page).then(resp=>{
                     return resp.data;
                 }).then(data=>{
                     
@@ -174,6 +178,53 @@ if(document.getElementById("myMachines"))
                 }).catch(err=>{
                     console.error(err.response.data);
                 });
+            },
+
+            openSearchBox() {
+                $(".search-container").addClass("search-active");
+            },
+            closeSearchBox() {
+                $(".search-container").removeClass("search-active");
+                this.isSearching = false;
+                this.searchText = "";
+                this.searchedMachines = [];
+            },
+
+            search() {
+
+                var _self = this;
+                
+                _self.isSearching = true;
+
+                if(window.searchTimer) {
+                    clearTimeout(window.searchTimer)
+                }
+
+                window.searchTimer = setTimeout(function() {
+
+                    if(_self.searchText != "") 
+                    {
+                        _self.isSearching = true;
+                        axios.get(customerApi+"search-machines",{
+                            params: {
+                                searchText : _self.searchText
+                            }
+                        }).then(resp=>{
+                            return resp.data;
+                        }).then(data=>{
+                            _self.searchedMachines = data;
+                            _self.isSearching = false;
+                        }).catch(err=>{
+                            console.error(err.response.data);
+                        })
+                    }
+                    else
+                    {
+                        _self.isSearching = false;
+                    }
+
+                }, 800);
+
             }
         },
         mounted() {

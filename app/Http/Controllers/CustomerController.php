@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Machines;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -29,6 +30,20 @@ class CustomerController extends Controller
 
         $machines = Machines::where("customer_phone",$customerPhone)
         ->orderBy("id","desc")->paginate(15);
+
+        return response()->json($machines);
+    }
+
+    public function searchMachines(Request $req)
+    {
+        $searchText = $req->searchText;
+
+        $phone = auth("customer")->user()->phone;
+
+        $machines = Machines::where("customer_phone",$phone)
+        ->where("model",$searchText)->orWhere("bottom_sl",$searchText)
+        ->orWhere("top_sl",$searchText)->orWhere("label_number",$searchText)
+        ->orWhere("manufacturer",$searchText)->get();
 
         return response()->json($machines);
     }

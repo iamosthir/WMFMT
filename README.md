@@ -48,3 +48,8 @@ pass: wmfmtadmin2022
     <li>Parts serach page</li>
 </ol>
 
+<p><b>V 1.3</b></p>
+<ol>
+    <li>Customer login</li>
+</ol>
+

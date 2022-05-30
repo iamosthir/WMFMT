@@ -2484,7 +2484,7 @@ if (document.getElementById("register-form")) {
 } // Customer machine list
 
 
-var csutomerApi = "/customer/api/";
+var customerApi = "/customer/api/";
 
 if (document.getElementById("myMachines")) {
   var customerMachines = new vue__WEBPACK_IMPORTED_MODULE_9__["default"]({
@@ -2493,14 +2493,18 @@ if (document.getElementById("myMachines")) {
       return {
         paginateData: {},
         machines: [],
-        isLoading: true
+        isLoading: true,
+        isSearching: false,
+        searchText: "",
+        searchedMachines: []
       };
     },
     methods: {
       getMachineList: function getMachineList() {
         var _this2 = this;
 
-        axios.get(csutomerApi + "customer-machine-list").then(function (resp) {
+        var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+        axios.get(customerApi + "customer-machine-list/?page=" + page).then(function (resp) {
           return resp.data;
         }).then(function (data) {
           _this2.paginateData = data;
@@ -2509,6 +2513,44 @@ if (document.getElementById("myMachines")) {
         })["catch"](function (err) {
           console.error(err.response.data);
         });
+      },
+      openSearchBox: function openSearchBox() {
+        $(".search-container").addClass("search-active");
+      },
+      closeSearchBox: function closeSearchBox() {
+        $(".search-container").removeClass("search-active");
+        this.isSearching = false;
+        this.searchText = "";
+        this.searchedMachines = [];
+      },
+      search: function search() {
+        var _self = this;
+
+        _self.isSearching = true;
+
+        if (window.searchTimer) {
+          clearTimeout(window.searchTimer);
+        }
+
+        window.searchTimer = setTimeout(function () {
+          if (_self.searchText != "") {
+            _self.isSearching = true;
+            axios.get(customerApi + "search-machines", {
+              params: {
+                searchText: _self.searchText
+              }
+            }).then(function (resp) {
+              return resp.data;
+            }).then(function (data) {
+              _self.searchedMachines = data;
+              _self.isSearching = false;
+            })["catch"](function (err) {
+              console.error(err.response.data);
+            });
+          } else {
+            _self.isSearching = false;
+          }
+        }, 800);
       }
     },
     mounted: function mounted() {
