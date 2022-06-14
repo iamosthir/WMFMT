@@ -45,7 +45,102 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      isLoading: true,
+      customers: {},
+      moment: moment,
+      searchText: "",
+      searchMode: false
+    };
+  },
+  methods: {
+    getAllcustomersList: function getAllcustomersList() {
+      var _this = this;
+
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      this.isLoading = true;
+      axios.get("/admin/api/get-all-customers-list?page=" + page + "&q=" + this.searchText).then(function (resp) {
+        return resp.data;
+      }).then(function (data) {
+        _this.customers = data;
+        _this.isLoading = false;
+      })["catch"](function (err) {
+        console.error(err.response.data);
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getAllcustomersList();
+  }
+});
 
 /***/ }),
 
@@ -133,49 +228,268 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "content-header" }, [
-          _c("div", { staticClass: "container-fluid" }, [
-            _c("div", { staticClass: "row mb-2" }, [
-              _c("div", { staticClass: "col-sm-6" }, [
-                _c("h1", { staticClass: "m-0" }, [_vm._v("Dashboard")]),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-6" }, [
-                _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
-                  _c("li", { staticClass: "breadcrumb-item" }, [
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("Home")]),
-                  ]),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "breadcrumb-item active" }, [
-                    _vm._v("Customer List"),
-                  ]),
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-12" }, [
+      _c("div", { staticClass: "content-header" }, [
+        _c("div", { staticClass: "container-fluid" }, [
+          _c("div", { staticClass: "row mb-2" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
+                _c(
+                  "li",
+                  { staticClass: "breadcrumb-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { to: { name: "dashboard" } } },
+                      [_vm._v("Home")]
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("li", { staticClass: "breadcrumb-item active" }, [
+                  _vm._v("Customer List"),
                 ]),
               ]),
             ]),
           ]),
         ]),
       ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _c("h4", [
-              _c("i", { staticClass: "fas fa-user" }),
-              _vm._v(" Customer List"),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-12" }, [
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("form", { staticClass: "col-md-6" }, [
+              _c("div", { staticClass: "input-group mb-3" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.searchText,
+                      expression: "searchText",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", placeholder: "Search customer..." },
+                  domProps: { value: _vm.searchText },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.searchText = $event.target.value
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _vm._m(1),
+              ]),
             ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-md-12 mt-3" },
+              [
+                _c("h4", [_vm._v("List")]),
+                _vm._v(" "),
+                _vm.isLoading
+                  ? _c(
+                      "div",
+                      { staticClass: "row" },
+                      _vm._l(10, function (n) {
+                        return _c(
+                          "div",
+                          { key: n, staticClass: "col-12 mb-2" },
+                          [
+                            _c("skeleton", {
+                              attrs: { width: "100%", height: "30px" },
+                            }),
+                          ],
+                          1
+                        )
+                      }),
+                      0
+                    )
+                  : [
+                      _c("div", { staticClass: "table-responsive" }, [
+                        _c(
+                          "table",
+                          {
+                            staticClass:
+                              "table table-striped table-hover table-bordered",
+                          },
+                          [
+                            _vm._m(2),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              [
+                                _vm.customers.data.length == 0
+                                  ? [_vm._m(3)]
+                                  : _vm._l(
+                                      _vm.customers.data,
+                                      function (customer, i) {
+                                        return _c("tr", { key: i }, [
+                                          _c("td", [
+                                            _vm._v(_vm._s(customer.name)),
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("td", [
+                                            _vm._v(_vm._s(customer.phone)),
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("td", [
+                                            _vm._v(
+                                              _vm._s(
+                                                customer.email ||
+                                                  "Email not provided"
+                                              )
+                                            ),
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("td", [
+                                            _vm._v(_vm._s(customer.company)),
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("td", [
+                                            _vm._v(_vm._s(customer.address)),
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("td", [
+                                            _c("b", [
+                                              _vm._v(
+                                                _vm._s(customer.machine_count)
+                                              ),
+                                            ]),
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("td", [
+                                            customer.email != ""
+                                              ? _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "badge badge-danger",
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "Accoutn not completed"
+                                                    ),
+                                                  ]
+                                                )
+                                              : _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "badge badge-success",
+                                                  },
+                                                  [_vm._v("Active")]
+                                                ),
+                                          ]),
+                                          _vm._v(" "),
+                                          _vm._m(4, true),
+                                        ])
+                                      }
+                                    ),
+                              ],
+                              2
+                            ),
+                          ]
+                        ),
+                      ]),
+                    ],
+              ],
+              2
+            ),
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "card-body" }),
+          _c(
+            "div",
+            { staticClass: "d-flex justify-content-center" },
+            [
+              _c("pagination", {
+                attrs: { data: _vm.customers },
+                on: { "pagination-change-page": _vm.getAllcustomersList },
+              }),
+            ],
+            1
+          ),
         ]),
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-sm-6" }, [
+      _c("h1", { staticClass: "m-0" }, [_vm._v("Customer List")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-success", attrs: { type: "submit" } },
+        [_c("i", { staticClass: "fas fa-search" })]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Customer Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Phone number")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Company Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Address")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Total Machines")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Account Status")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c(
+        "td",
+        { staticClass: "text-center text-danger", attrs: { colspan: "10" } },
+        [_vm._v("No customer was found")]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("button", { staticClass: "btn btn-sm btn-success" }, [
+        _c("i", { staticClass: "fas fa-eye" }),
+        _vm._v(" View"),
       ]),
     ])
   },

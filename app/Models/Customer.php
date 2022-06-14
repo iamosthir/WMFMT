@@ -40,4 +40,11 @@ class Customer extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    // Get machine count
+    public function machine()
+    {
+        return $this->hasMany(Machines::class,"customer_phone","phone");
+    }
 }

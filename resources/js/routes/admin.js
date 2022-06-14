@@ -183,14 +183,27 @@ const router  = new VueRouter({
         },
 
         // Customer mangae
+
         {
-            path: prefix + "customers",
-            name: "customer.list",
-            component: ()=>import("../components/admin/customer/List.vue"),
-            meta: {
-                title: "Customer List"
-            }
-        }
+            path: prefix + "customer",
+            name: "customer",
+            component: ()=>import("../components/admin/customer/Container.vue"),
+            redirect: {
+                name: "customer.list"
+            },
+            children: [
+                {
+                    path: "",
+                    name: "customer.list",
+                    component: ()=>import("../components/admin/customer/List.vue"),
+                    meta: {
+                        title: "Customer List"
+                    }
+                }
+            ]
+        },
+
+        
     ],
 
     scrollBehavior(to, from, savedPos) {

@@ -155,6 +155,10 @@ Route::group(["prefix"=>"admin", "middleware" => "auth"],function(){
         Route::post('/complete-part-request',"PartsController@completeRequest");
         // 
 
+
+        // Customer
+        Route::get("/get-all-customers-list", "CustomerDataController@getList");
+
     });
 
 });
