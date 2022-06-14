@@ -13,7 +13,7 @@ class ScanController extends Controller
     {
         if ($data = Machines::where("label_number", $req->label)->first()) 
         {
-            if(auth()->check())
+            if(auth()->check() && !auth("customer")->check())
             {
                 return redirect()->to("/admin/listed-machine/view-machine-info/$data->id");
             }
@@ -24,7 +24,7 @@ class ScanController extends Controller
         } 
         else 
         {
-            if(auth()->check())
+            if(auth()->check() && !auth("customer")->check())
             {
                 return redirect()->to("/admin/machine-not-found/$req->label");
             }

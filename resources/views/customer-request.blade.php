@@ -16,7 +16,7 @@
             </div>
             <div class="col-md-12">
                 <div class="custom-form-card">
-                    <service-form :machine="{{ json_encode($data) }}"></service-form>
+                    <service-form :machine="{{ json_encode($data) }}" :user="{{ json_encode(auth('customer')->user()) }}"></service-form>
                 </div>
             </div>
         </div>

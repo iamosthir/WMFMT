@@ -51,5 +51,12 @@ pass: wmfmtadmin2022
 <p><b>V 1.3</b></p>
 <ol>
     <li>Customer login</li>
+    <li>Machine Search</li>
+</ol>
+
+<p><b>V 1.4</b></p>
+<ol>
+    <li>Customer Dashboard</li>
+    <li></li>
 </ol>
 

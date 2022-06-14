@@ -83,6 +83,8 @@ AdminRouter.afterEach(() => {
 });
 
 
+
+
 if(document.getElementById("admin"))
 {
     const app = new Vue({
@@ -91,6 +93,14 @@ if(document.getElementById("admin"))
     });
 }
 
+
+// Customer maintanance request form
+if(document.getElementById("customer"))
+{
+    const customerRForm = new Vue({
+        el: "#customer"
+    });
+}
 
 if (document.getElementById("register-form"))
 {
@@ -120,6 +130,7 @@ if (document.getElementById("register-form"))
                 this.verifyPhoneForm.post("/customer-verify-phone").then(resp=>{
                     return resp.data;
                 }).then(data=>{
+                    console.log(data);
                     if(data.status == "ok") {
                         this.registerForm.name = data.customer.customer_name;
                         this.registerForm.phone = this.verifyPhoneForm.phone;
@@ -145,8 +156,6 @@ if (document.getElementById("register-form"))
         }
     })
 }
-
-
 
 // Customer machine list
 const customerApi = "/customer/api/";

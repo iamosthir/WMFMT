@@ -85,31 +85,57 @@ class RegisterController extends Controller
         if($req->ajax())
         {
             $this->validate($req,[
-                "phone" => "required|numeric|unique:customers,phone"
+                "phone" => "required"
             ],[
                 "phone.required" => "Give your phone number",
-                "phone.numeric" => "Invalid phone number",
-                "phone.unique" => "There is already an account with this phone number"
             ]);
+
+            $isCustomer = Customer::where("phone",$req->phone)->first();
 
             $customerInfo = [
                 "customer_name" => "",
                 "customer_location" => "",
             ];
 
-            $data = Machines::where("customer_phone",$req->phone)->orderBy("id","desc")
-            ->first(["customer_name","customer_location"]);
-
-            if(!empty($data))
+            if($isCustomer)
             {
-                $customerInfo["customer_name"] = $data->customer_name;
-                $customerInfo["customer_location"] = $data->customer_location;
+                if($isCustomer->email == "")
+                {
+                    $data = Machines::where("customer_phone",$req->phone)->orderBy("id","desc")
+                    ->first(["customer_name","customer_location"]);
+
+                    if(!empty($data))
+                    {
+                        $customerInfo["customer_name"] = $data->customer_name;
+                        $customerInfo["customer_location"] = $data->customer_location;
+                    }
+                    return [
+                        "status" => "ok",
+                        "customer" => $customerInfo
+                    ];
+                }
+                else
+                {
+                    $error = [
+                        "message" => "The given data was invalid",
+                        "errors" => [
+                            "phone" => [
+                                "The phone number is already taken"
+                            ]
+                        ]
+                    ];
+                    return response($error,422);
+                }
             }
+            else
+            {
+
+            }
+
             
-            return [
-                "status" => "ok",
-                "customer" => $customerInfo
-            ];
+            
+            
+
         }
         else
         {
@@ -124,8 +150,8 @@ class RegisterController extends Controller
     {
         $this->validate($req,[
             "name" => "required",
-            "email" => "required|email|unique:customers,email",
-            "phone" => "required|numeric|unique:customers,phone",
+            "email" => "required|email",
+            "phone" => "required",
             "pswrd" => "required|min:8|confirmed",
             "address" => "required"
         ],[
@@ -138,16 +164,24 @@ class RegisterController extends Controller
             "address.required" => "Address is required"
         ]);
 
-        $customer = new Customer();
+        if($c = Customer::where("phone",$req->phone)->first())
+        {
+            $customer = $c;
+        }
+        else
+        {
+            $customer = new Customer();
+        }
+
         $customer->name = $req->name;
         $customer->email = $req->email;
         $customer->phone = $req->phone;
         $customer->password = bcrypt($req->pswrd);
         $customer->address = $req->address;
+        $customer->company = $req->company;
         $customer->save();
 
         session()->flash("success","Registration was succesfull");
-
         return [
             "status" => "ok"
         ];

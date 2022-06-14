@@ -37,7 +37,9 @@
 
             <div class="col-md-4 mb-4">
                 <label for=""><b>Your full name *</b></label>
-                <input :class="{'is-invalid': form.errors.has('customerName')}" type="text" class="form-control" placeholder="Your name..." v-model="form.customerName">
+                <input :class="{'is-invalid': form.errors.has('customerName')}" 
+                type="text" class="form-control" placeholder="Your name..." 
+                v-model="form.customerName">
                 <HasError :form="form" field="customerName" />
             </div>
 
@@ -88,7 +90,16 @@
 <script>
 export default {
 
-    props: ["machine"],
+    props: {
+        "machine" : {
+            type: Object,
+            required: true
+        },
+        "user" : {
+            type: Object,
+            required: false,
+        }
+    },
     data() {
         return {
             form: new Form({
@@ -121,7 +132,14 @@ export default {
             });
         }
 
-    }
+    },
+    mounted() {
+        if(this.user) {
+            this.form.customerName = this.user.name;
+            this.form.customerPhone = this.user.phone;
+            this.form.customerEmail = this.user.email;
+        }
+    },
 }
 </script>
 

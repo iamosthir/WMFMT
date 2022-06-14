@@ -180,6 +180,16 @@ const router  = new VueRouter({
             meta: {
                 title: "Machine not found"
             }
+        },
+
+        // Customer mangae
+        {
+            path: prefix + "customers",
+            name: "customer.list",
+            component: ()=>import("../components/admin/customer/List.vue"),
+            meta: {
+                title: "Customer List"
+            }
         }
     ],
 

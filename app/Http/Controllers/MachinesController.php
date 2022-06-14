@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Machines;
 use App\Models\Parts;
 use App\Models\ServiceHistory;
@@ -53,6 +54,16 @@ class MachinesController extends Controller
             $file_path = $customerPhoto->storeAs("customer",$customer_photo_file_name,"privateUpload");
             $machine->customer_photo = $customer_photo_file_name;
         }
+
+        if(!Customer::where("phone",$req->customerNumber)->first())
+        {
+            $customer = new Customer();
+            $customer->name = $req->customerName;
+            $customer->phone = $req->customerNumber;
+            $customer->password = bcrypt("password##123");
+            $customer->save();
+        }
+        
         $machine->save();
         
 

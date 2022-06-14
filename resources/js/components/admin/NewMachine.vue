@@ -94,9 +94,10 @@
                             <div class="form-group">
                                 <label>Contact Number</label>
                                 <input :class="{'is-invalid' : form.errors.has('customerNumber')}" type="text" class="form-control"
-                                 placeholder="Customer name..." v-model="form.customerNumber">
+                                 placeholder="Customer phone number..." v-model="form.customerNumber">
                                 <HasError :form="form" field="customerNumber" />
                             </div>
+
 
                             <div class="form-group">
                                 <label>Customer Photograph <small>(optional)</small></label>

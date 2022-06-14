@@ -95,6 +95,7 @@
                                         <th>Machine Label</th>
                                         <th>Top SL.</th>
                                         <th>Bottom Sl.</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody v-if="!isLoading" v-cloak>
@@ -107,6 +108,7 @@
                                             <td><span class="badge bg-secondary">@{{ machine.label_number }}</span></td>
                                             <td><span class="badge bg-info">@{{ machine.top_sl }}</span></td>
                                             <td><span class="badge bg-warning">@{{ machine.bottom_sl }}</span></td>
+                                            <td><a :href="'/query/label='+machine.label_number" class="btn btn-sm btn-primary">Ask for service <i class="fas fa-arrow-circle-right"></i></a></td>
                                         </tr>
                                     </template>
 

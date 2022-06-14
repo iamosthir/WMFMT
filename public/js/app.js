@@ -2251,8 +2251,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["machine"],
+  props: {
+    "machine": {
+      type: Object,
+      required: true
+    },
+    "user": {
+      type: Object,
+      required: false
+    }
+  },
   data: function data() {
     return {
       form: new Form({
@@ -2285,6 +2296,13 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         console.error(err.response.data);
       });
+    }
+  },
+  mounted: function mounted() {
+    if (this.user) {
+      this.form.customerName = this.user.name;
+      this.form.customerPhone = this.user.phone;
+      this.form.customerEmail = this.user.email;
     }
   }
 });
@@ -2428,6 +2446,13 @@ if (document.getElementById("admin")) {
     el: '#admin',
     router: _routes_admin__WEBPACK_IMPORTED_MODULE_0__["default"]
   });
+} // Customer maintanance request form
+
+
+if (document.getElementById("customer")) {
+  var customerRForm = new vue__WEBPACK_IMPORTED_MODULE_9__["default"]({
+    el: "#customer"
+  });
 }
 
 if (document.getElementById("register-form")) {
@@ -2458,6 +2483,8 @@ if (document.getElementById("register-form")) {
         this.verifyPhoneForm.post("/customer-verify-phone").then(function (resp) {
           return resp.data;
         }).then(function (data) {
+          console.log(data);
+
           if (data.status == "ok") {
             _this.registerForm.name = data.customer.customer_name;
             _this.registerForm.phone = _this.verifyPhoneForm.phone;
@@ -2755,6 +2782,16 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     },
     meta: {
       title: "Machine not found"
+    }
+  }, // Customer mangae
+  {
+    path: prefix + "customers",
+    name: "customer.list",
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_js_components_admin_customer_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/admin/customer/List.vue */ "./resources/js/components/admin/customer/List.vue"));
+    },
+    meta: {
+      title: "Customer List"
     }
   }],
   scrollBehavior: function scrollBehavior(to, from, savedPos) {
@@ -53161,7 +53198,7 @@ module.exports = JSON.parse('[{"name":"success","icon":"fas fa-bell","icon_size"
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_admin_Dashboard_vue":1,"resources_js_components_admin_NewMachine_vue":1,"resources_js_components_admin_ListMachine_Container_vue":1,"resources_js_components_admin_ListMachine_AllList_vue":1,"resources_js_components_admin_ListMachine_Edit_vue":1,"resources_js_components_admin_ListMachine_Info_vue":1,"resources_js_components_admin_ListMachine_AddServiceRecord_vue":1,"resources_js_components_admin_ListMachine_ServiceDetails_vue":1,"resources_js_components_admin_ListMachine_EditServiceRecord_vue":1,"resources_js_components_admin_user_MyProfile_vue":1,"resources_js_components_admin_user_AdminList_vue":1,"resources_js_components_admin_user_CreateAdmin_vue":1,"resources_js_components_admin_user_EditAdmin_vue":1,"resources_js_components_admin_RecentHistory_vue":1,"resources_js_components_admin_parts_PartsRequest_vue":1,"resources_js_components_admin_parts_AddParts_vue":1,"resources_js_components_admin_parts_AllList_vue":1,"resources_js_components_admin_parts_EditPart_vue":1,"resources_js_components_admin_MachineNotFound_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_admin_Dashboard_vue":1,"resources_js_components_admin_NewMachine_vue":1,"resources_js_components_admin_ListMachine_Container_vue":1,"resources_js_components_admin_ListMachine_AllList_vue":1,"resources_js_components_admin_ListMachine_Edit_vue":1,"resources_js_components_admin_ListMachine_Info_vue":1,"resources_js_components_admin_ListMachine_AddServiceRecord_vue":1,"resources_js_components_admin_ListMachine_ServiceDetails_vue":1,"resources_js_components_admin_ListMachine_EditServiceRecord_vue":1,"resources_js_components_admin_user_MyProfile_vue":1,"resources_js_components_admin_user_AdminList_vue":1,"resources_js_components_admin_user_CreateAdmin_vue":1,"resources_js_components_admin_user_EditAdmin_vue":1,"resources_js_components_admin_RecentHistory_vue":1,"resources_js_components_admin_parts_PartsRequest_vue":1,"resources_js_components_admin_parts_AddParts_vue":1,"resources_js_components_admin_parts_AllList_vue":1,"resources_js_components_admin_parts_EditPart_vue":1,"resources_js_components_admin_MachineNotFound_vue":1,"resources_js_components_admin_customer_List_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

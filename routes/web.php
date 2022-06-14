@@ -41,6 +41,8 @@ Route::post("/customer-logout",function(){
     return redirect("/");
 })->name("customer.logout");
 // 
+
+// Customer route API
 Route::group(["prefix"=> "customer","middleware"=>"auth:customer"],function(){
 
     Route::get("/", "CustomerController@index")->name('customer.home');
@@ -60,7 +62,7 @@ Route::group(["prefix"=> "customer","middleware"=>"auth:customer"],function(){
     });
     
 });
-
+// 
 
 Auth::routes(["register"=>false]);
 Route::get("/admin", function () {
@@ -70,7 +72,7 @@ Route::get("/admin", function () {
 
 Route::post("/submit-service-request-form","ScanController@submitForm");
 
-// Admin
+// Admin API
 Route::group(["prefix"=>"admin", "middleware" => "auth"],function(){
 
     Route::any("{any}", "HomeController@admin")->where("any", "^(?!api/.*$).*$");
