@@ -199,6 +199,23 @@ const router  = new VueRouter({
                     meta: {
                         title: "Customer List"
                     }
+                },
+                {
+                    path: "profile/:customerId",
+                    name: "customer.profile",
+                    component: ()=>import("../components/admin/customer/CustomerProfile.vue"),
+                    meta: {
+                        title: "Customer profile"
+                    }
+                },
+                {
+                    path: "import-excel-sheet/customer/:customerId",
+                    name: "customer.import-sheet",
+                    component: ()=>import("../components/admin/customer/ImportSheet.vue"),
+                    meta: {
+                        title: "Import excel sheet"
+                    }
+
                 }
             ]
         },

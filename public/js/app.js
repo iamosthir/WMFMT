@@ -2802,6 +2802,24 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       meta: {
         title: "Customer List"
       }
+    }, {
+      path: "profile/:customerId",
+      name: "customer.profile",
+      component: function component() {
+        return __webpack_require__.e(/*! import() */ "resources_js_components_admin_customer_CustomerProfile_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/admin/customer/CustomerProfile.vue */ "./resources/js/components/admin/customer/CustomerProfile.vue"));
+      },
+      meta: {
+        title: "Customer profile"
+      }
+    }, {
+      path: "import-excel-sheet/customer/:customerId",
+      name: "customer.import-sheet",
+      component: function component() {
+        return __webpack_require__.e(/*! import() */ "resources_js_components_admin_customer_ImportSheet_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/admin/customer/ImportSheet.vue */ "./resources/js/components/admin/customer/ImportSheet.vue"));
+      },
+      meta: {
+        title: "Import excel sheet"
+      }
     }]
   }],
   scrollBehavior: function scrollBehavior(to, from, savedPos) {
@@ -53208,7 +53226,7 @@ module.exports = JSON.parse('[{"name":"success","icon":"fas fa-bell","icon_size"
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_admin_Dashboard_vue":1,"resources_js_components_admin_NewMachine_vue":1,"resources_js_components_admin_ListMachine_Container_vue":1,"resources_js_components_admin_ListMachine_AllList_vue":1,"resources_js_components_admin_ListMachine_Edit_vue":1,"resources_js_components_admin_ListMachine_Info_vue":1,"resources_js_components_admin_ListMachine_AddServiceRecord_vue":1,"resources_js_components_admin_ListMachine_ServiceDetails_vue":1,"resources_js_components_admin_ListMachine_EditServiceRecord_vue":1,"resources_js_components_admin_user_MyProfile_vue":1,"resources_js_components_admin_user_AdminList_vue":1,"resources_js_components_admin_user_CreateAdmin_vue":1,"resources_js_components_admin_user_EditAdmin_vue":1,"resources_js_components_admin_RecentHistory_vue":1,"resources_js_components_admin_parts_PartsRequest_vue":1,"resources_js_components_admin_parts_AddParts_vue":1,"resources_js_components_admin_parts_AllList_vue":1,"resources_js_components_admin_parts_EditPart_vue":1,"resources_js_components_admin_MachineNotFound_vue":1,"resources_js_components_admin_customer_Container_vue":1,"resources_js_components_admin_customer_List_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_admin_Dashboard_vue":1,"resources_js_components_admin_NewMachine_vue":1,"resources_js_components_admin_ListMachine_Container_vue":1,"resources_js_components_admin_ListMachine_AllList_vue":1,"resources_js_components_admin_ListMachine_Edit_vue":1,"resources_js_components_admin_ListMachine_Info_vue":1,"resources_js_components_admin_ListMachine_AddServiceRecord_vue":1,"resources_js_components_admin_ListMachine_ServiceDetails_vue":1,"resources_js_components_admin_ListMachine_EditServiceRecord_vue":1,"resources_js_components_admin_user_MyProfile_vue":1,"resources_js_components_admin_user_AdminList_vue":1,"resources_js_components_admin_user_CreateAdmin_vue":1,"resources_js_components_admin_user_EditAdmin_vue":1,"resources_js_components_admin_RecentHistory_vue":1,"resources_js_components_admin_parts_PartsRequest_vue":1,"resources_js_components_admin_parts_AddParts_vue":1,"resources_js_components_admin_parts_AllList_vue":1,"resources_js_components_admin_parts_EditPart_vue":1,"resources_js_components_admin_MachineNotFound_vue":1,"resources_js_components_admin_customer_Container_vue":1,"resources_js_components_admin_customer_List_vue":1,"resources_js_components_admin_customer_CustomerProfile_vue":1,"resources_js_components_admin_customer_ImportSheet_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

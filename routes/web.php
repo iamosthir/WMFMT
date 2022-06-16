@@ -159,6 +159,10 @@ Route::group(["prefix"=>"admin", "middleware" => "auth"],function(){
         // Customer
         Route::get("/get-all-customers-list", "CustomerDataController@getList");
 
+        Route::get("/check-customer-info","CustomerDataController@checkData");
+
+        Route::post("/upload-excel-sheet","CustomerDataController@uploadExcel");
+
     });
 
 });

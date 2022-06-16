@@ -21,4 +21,43 @@ class CustomerDataController extends Controller
 
         return response()->json($customers);
     }
+
+    public function checkData(Request $req)
+    {
+        $this->validate($req,[
+            "customerId" => "required|numeric|exists:customers,id"
+        ]);
+
+        if($customer = Customer::find($req->customerId))
+        {
+            return [
+                "status" => "ok",
+                "customer" => $customer
+            ];
+        }
+        else
+        {
+            return [
+                "status" => "fail"
+            ];
+        }
+    }
+
+    public function uploadExcel(Request $req)
+    {
+        if($req->hasFile("excel"))
+        {
+            return [
+                "status" => "ok",
+                "data" => $req->file("excel")
+            ];
+        }
+        else
+        {
+            return response([
+                "status" => "fail",
+                "msg" => "File not found"
+            ],422);
+        }
+    }
 }

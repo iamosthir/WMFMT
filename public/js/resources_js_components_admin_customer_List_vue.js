@@ -370,7 +370,7 @@ var render = function () {
                                           ]),
                                           _vm._v(" "),
                                           _c("td", [
-                                            customer.email != ""
+                                            customer.email == ""
                                               ? _c(
                                                   "span",
                                                   {
@@ -379,7 +379,7 @@ var render = function () {
                                                   },
                                                   [
                                                     _vm._v(
-                                                      "Accoutn not completed"
+                                                      "Account not completed"
                                                     ),
                                                   ]
                                                 )
@@ -393,7 +393,33 @@ var render = function () {
                                                 ),
                                           ]),
                                           _vm._v(" "),
-                                          _vm._m(4, true),
+                                          _c(
+                                            "td",
+                                            [
+                                              _c(
+                                                "router-link",
+                                                {
+                                                  staticClass:
+                                                    "btn btn-sm btn-success",
+                                                  attrs: {
+                                                    to: {
+                                                      name: "customer.profile",
+                                                      params: {
+                                                        customerId: customer.id,
+                                                      },
+                                                    },
+                                                  },
+                                                },
+                                                [
+                                                  _c("i", {
+                                                    staticClass: "fas fa-eye",
+                                                  }),
+                                                  _vm._v(" View"),
+                                                ]
+                                              ),
+                                            ],
+                                            1
+                                          ),
                                         ])
                                       }
                                     ),
@@ -480,17 +506,6 @@ var staticRenderFns = [
         { staticClass: "text-center text-danger", attrs: { colspan: "10" } },
         [_vm._v("No customer was found")]
       ),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("button", { staticClass: "btn btn-sm btn-success" }, [
-        _c("i", { staticClass: "fas fa-eye" }),
-        _vm._v(" View"),
-      ]),
     ])
   },
 ]

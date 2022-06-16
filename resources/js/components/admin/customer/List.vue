@@ -74,11 +74,11 @@
                                                 <td>{{ customer.address }}</td>
                                                 <td><b>{{ customer.machine_count }}</b></td>
                                                 <td>
-                                                    <span v-if="customer.email != ''" class="badge badge-danger">Accoutn not completed</span>
+                                                    <span v-if="customer.email == ''" class="badge badge-danger">Account not completed</span>
                                                     <span v-else class="badge badge-success">Active</span>
                                                 </td>
                                                 <td>
-                                                    <button class="btn btn-sm btn-success"><i class="fas fa-eye"></i> View</button>
+                                                    <router-link :to="{name: 'customer.profile', params:{ customerId: customer.id}}" class="btn btn-sm btn-success"><i class="fas fa-eye"></i> View</router-link>
                                                 </td>
                                             </tr>
                                         </template>
