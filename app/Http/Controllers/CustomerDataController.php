@@ -175,4 +175,14 @@ class CustomerDataController extends Controller
         }
 
     }
+
+    public function getMachine(Request $req)
+    {
+        $customerPhone = Customer::find($req->customerId)->phone;
+
+        $machines = Machines::where("customer_phone",$customerPhone)
+        ->orderBy("id","desc")->paginate(15);
+
+        return response()->json($machines);
+    }
 }

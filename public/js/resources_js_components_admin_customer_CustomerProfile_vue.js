@@ -61,11 +61,77 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      customerData: {}
+      customerData: {},
+      machineData: {}
     };
   },
   methods: {
@@ -81,6 +147,8 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (data) {
         if (data.status == "ok") {
           _this.customerData = data.customer;
+
+          _this.getCustomerMachines();
         } else {
           _this.$router.push({
             name: "customer.list"
@@ -92,6 +160,53 @@ __webpack_require__.r(__webpack_exports__);
         _this.$router.push({
           name: "customer.list"
         });
+      });
+    },
+    getCustomerMachines: function getCustomerMachines() {
+      var _this2 = this;
+
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/admin/api/get-customer-machines?page=" + page, {
+        params: {
+          customerId: this.$route.params.customerId
+        }
+      }).then(function (resp) {
+        return resp.data;
+      }).then(function (data) {
+        _this2.machineData = data;
+      })["catch"](function (err) {
+        console.error(err.response.data);
+      });
+    },
+    deleteMachine: function deleteMachine(index, id) {
+      var _this3 = this;
+
+      swal.fire({
+        title: 'Are you sure?',
+        text: "This will delete all service records as well",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          axios__WEBPACK_IMPORTED_MODULE_0___default().post("/admin/api/delete-machine", {
+            machineId: id
+          }).then(function (resp) {
+            return resp.data;
+          }).then(function (data) {
+            console.log(data);
+
+            if (data.status == "ok") {
+              swal.fire("Success", data.msg, "success");
+
+              _this3.machineData.data.splice(index, 1);
+            }
+          })["catch"](function (err) {
+            console.error(err.response.data);
+          });
+        }
       });
     }
   },
@@ -275,6 +390,232 @@ var render = function () {
           ],
           1
         ),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "table-responsive" }, [
+            _c("table", { staticClass: "table table-bordered table-hover" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                [
+                  _vm.machineData.data.length > 0
+                    ? _vm._l(_vm.machineData.data, function (machine, i) {
+                        return _c(
+                          "tr",
+                          { key: i },
+                          [
+                            _c("td", [_vm._v(_vm._s(machine.title))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(machine.manufacturer))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "span",
+                                {
+                                  staticClass: "badge badge-pill badge-warning",
+                                },
+                                [_vm._v(_vm._s(machine.model))]
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "span",
+                                {
+                                  staticClass: "badge badge-pill badge-primary",
+                                },
+                                [_vm._v(_vm._s(machine.bottom_sl))]
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-pill badge-secondary",
+                                },
+                                [_vm._v(_vm._s(machine.top_sl))]
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "span",
+                                {
+                                  staticClass: "badge badge-pill badge-success",
+                                },
+                                [_vm._v(_vm._s(machine.label_number))]
+                              ),
+                            ]),
+                            _vm._v(" "),
+                            [
+                              machine.last_service == null
+                                ? _c("td", [_vm._v("Never")])
+                                : _c("td", [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm
+                                          .moment(
+                                            machine.last_service.created_at
+                                          )
+                                          .format("MM / DD / YYYY")
+                                      )
+                                    ),
+                                  ]),
+                            ],
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "mb-2 btn btn-sm btn-secondary dropdown-toggle",
+                                  attrs: {
+                                    type: "button",
+                                    id: "dropdownMenuButton",
+                                    "data-toggle": "dropdown",
+                                    "aria-haspopup": "true",
+                                    "aria-expanded": "false",
+                                  },
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                          Actions\n                                      "
+                                  ),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "dropdown-menu",
+                                  attrs: {
+                                    "aria-labelledby": "dropdownMenuButton",
+                                  },
+                                },
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "dropdown-item",
+                                      attrs: {
+                                        to: {
+                                          name: "machine.info",
+                                          params: { id: machine.id },
+                                        },
+                                      },
+                                    },
+                                    [
+                                      _c("i", { staticClass: "fas fa-eye" }),
+                                      _vm._v(" Details"),
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  machine.last_service
+                                    ? _c(
+                                        "router-link",
+                                        {
+                                          staticClass: "dropdown-item",
+                                          attrs: {
+                                            to: {
+                                              name: "machine.serviceHistory",
+                                              params: {
+                                                machineId:
+                                                  machine.last_service
+                                                    .machine_id,
+                                                serviceId:
+                                                  machine.last_service.id,
+                                              },
+                                            },
+                                          },
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fas fa-eye",
+                                          }),
+                                          _vm._v(" Last Service Details"),
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "dropdown-item",
+                                      attrs: {
+                                        to: {
+                                          name: "machine.service-record.add",
+                                          params: { machineId: machine.id },
+                                        },
+                                      },
+                                    },
+                                    [
+                                      _c("i", { staticClass: "fas fa-plus" }),
+                                      _vm._v(" Add Service Record"),
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "dropdown-item text-warning",
+                                      attrs: {
+                                        to: {
+                                          name: "machine.edit",
+                                          params: { id: machine.id },
+                                        },
+                                      },
+                                    },
+                                    [
+                                      _c("i", { staticClass: "fas fa-edit" }),
+                                      _vm._v(" Edit Machine Info"),
+                                    ]
+                                  ),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "mb-2 btn btn-sm btn-danger",
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.deleteMachine(i, machine.id)
+                                    },
+                                  },
+                                },
+                                [
+                                  _c("i", { staticClass: "fas fa-trash" }),
+                                  _vm._v(" Delete"),
+                                ]
+                              ),
+                            ]),
+                          ],
+                          2
+                        )
+                      })
+                    : void 0,
+                ],
+                2
+              ),
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "d-flex justify-content-center" },
+              [
+                _c("pagination", {
+                  attrs: { data: _vm.machineData },
+                  on: { "pagination-change-page": _vm.getCustomerMachines },
+                }),
+              ],
+              1
+            ),
+          ]),
+        ]),
       ]),
     ]),
   ])
@@ -294,6 +635,30 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("h4", { staticClass: "text-muted" }, [_vm._v("Profile")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Title")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Manufacturer")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Model")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Bottom SL")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Top SL")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Label Number")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Last Service Date")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")]),
+      ]),
     ])
   },
 ]

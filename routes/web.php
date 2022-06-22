@@ -165,6 +165,8 @@ Route::group(["prefix"=>"admin", "middleware" => "auth"],function(){
 
         Route::post("/import-from-sheet","CustomerDataController@importSheet");
 
+        Route::get("/get-customer-machines","CustomerDataController@getMachine");
+
     });
 
 });
