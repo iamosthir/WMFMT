@@ -163,6 +163,8 @@ Route::group(["prefix"=>"admin", "middleware" => "auth"],function(){
 
         Route::post("/upload-excel-sheet","CustomerDataController@uploadExcel");
 
+        Route::post("/import-from-sheet","CustomerDataController@importSheet");
+
     });
 
 });

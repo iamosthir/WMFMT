@@ -173,3 +173,8 @@
     background-color: teal;
     color: white;
 }
+
+.sheet-table{
+    max-height: 500px;
+    overflow: auto;
+}
