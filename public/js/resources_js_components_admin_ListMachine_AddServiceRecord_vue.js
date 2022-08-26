@@ -125,6 +125,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -133,11 +136,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         machineId: this.$route.params.machineId,
         serviceDate: new Date().toISOString().slice(0, 10),
         serviceType: "",
-        techName: authUserName,
+        techName: "",
         desc: "",
         photos: null,
         needParts: false
-      })
+      }),
+      techs: []
     };
   },
   methods: {
@@ -166,6 +170,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         });
       });
     },
+    getTech: function getTech() {
+      var _this2 = this;
+
+      axios.get("/admin/api/get-users-list").then(function (resp) {
+        return resp.data;
+      }).then(function (data) {
+        _this2.techs = data;
+      })["catch"](function (err) {
+        console.error(err.response.data);
+      });
+    },
     fileChange: function fileChange(e) {
       var file = e.target.files;
 
@@ -176,7 +191,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     submitForm: function submitForm() {
-      var _this2 = this;
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -184,15 +199,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _this2.form.post("/admin/api/add-service-record").then(function (resp) {
+                return _this3.form.post("/admin/api/add-service-record").then(function (resp) {
                   return resp.data;
                 }).then(function (data) {
                   if (data.status == "ok") {
                     swal.fire("Success", data.msg, "success").then(function () {
-                      _this2.$router.push({
+                      _this3.$router.push({
                         name: "machine.info",
                         params: {
-                          id: _this2.$route.params.machineId
+                          id: _this3.$route.params.machineId
                         }
                       });
                     });
@@ -212,6 +227,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   mounted: function mounted() {
     this.checkData();
+    this.getTech();
   }
 });
 
@@ -1283,28 +1299,54 @@ var render = function () {
                     _vm._v("Technician Name"),
                   ]),
                   _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.techName,
-                        expression: "form.techName",
-                      },
-                    ],
-                    staticClass: "form-control",
-                    class: { "is-invalid": _vm.form.errors.has("techName") },
-                    attrs: { type: "text", placeholder: "Technician name..." },
-                    domProps: { value: _vm.form.techName },
-                    on: {
-                      input: function ($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.form, "techName", $event.target.value)
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.techName,
+                          expression: "form.techName",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      class: { "is-invalid": _vm.form.errors.has("techName") },
+                      on: {
+                        change: function ($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function (o) {
+                              return o.selected
+                            })
+                            .map(function (o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.form,
+                            "techName",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
                       },
                     },
-                  }),
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v("Select Technician"),
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.techs, function (tech, i) {
+                        return _c(
+                          "option",
+                          { key: i, domProps: { value: tech.name } },
+                          [_vm._v(_vm._s(tech.name))]
+                        )
+                      }),
+                    ],
+                    2
+                  ),
                   _vm._v(" "),
                   _c("HasError", {
                     attrs: { form: _vm.form, field: "techName" },

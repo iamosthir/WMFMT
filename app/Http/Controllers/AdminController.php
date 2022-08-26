@@ -90,6 +90,12 @@ class AdminController extends Controller
         }
     }
 
+    public function userList()
+    {
+        $users = User::orderBy("name","asc")->get(["id","name"]);
+        return response()->json($users);
+    }
+
     public function create(Request $req)
     {
         $this->validate($req, [

@@ -120,6 +120,8 @@ Route::group(["prefix"=>"admin", "middleware" => "auth"],function(){
         Route::get('/get-admin-list', "AdminController@list");
         ######### END ##########
 
+        Route::get("/get-users-list","AdminController@userList");
+
 
         // Service request
         Route::get("/get-pending-services-limited","ServiceRequestController@getPending");

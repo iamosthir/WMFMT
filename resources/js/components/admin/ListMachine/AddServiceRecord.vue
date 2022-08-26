@@ -61,7 +61,10 @@
 
                     <div class="col-md-4 form-group">
                         <label for="">Technician Name</label>
-                        <input :class="{'is-invalid': form.errors.has('techName')}" type="text" class="form-control" placeholder="Technician name..." v-model="form.techName">
+                        <select :class="{'is-invalid': form.errors.has('techName')}" class="form-control" v-model="form.techName">
+                            <option value="">Select Technician</option>
+                            <option v-for="(tech,i) in techs" :key="i" :value="tech.name">{{ tech.name }}</option>
+                        </select>
                         <HasError :form="form" field="techName" />
                     </div>
 
@@ -103,11 +106,12 @@ export default {
                 machineId: this.$route.params.machineId,
                 serviceDate: new Date().toISOString().slice(0,10),
                 serviceType: "",
-                techName: authUserName,
+                techName: "",
                 desc: "",
                 photos: null,
                 needParts: false,
-            })
+            }),
+            techs: [],
         }
     },
 
@@ -133,6 +137,15 @@ export default {
                 this.$router.push({
                     name: 'machine.all-list'
                 });
+            })
+        },
+        getTech() {
+            axios.get("/admin/api/get-users-list").then(resp=>{
+                return resp.data;
+            }).then(data=>{
+                this.techs = data;
+            }).catch(err=>{
+                console.error(err.response.data);
             })
         },
 
@@ -169,6 +182,7 @@ export default {
 
     mounted() {
         this.checkData();
+        this.getTech();
     }
 }
 </script>

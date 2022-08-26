@@ -57,6 +57,6 @@ pass: wmfmtadmin2022
 <p><b>V 1.4</b></p>
 <ol>
     <li>Customer Dashboard</li>
-    <li></li>
+    <li>Excel sheet import in admin</li>
 </ol>
 
