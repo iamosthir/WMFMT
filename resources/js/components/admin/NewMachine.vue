@@ -81,7 +81,10 @@
 
                             <div class="form-group">
                                 <label>Customer Name</label>
-                                <input :class="{'is-invalid' : form.errors.has('customerName')}" type="text" class="form-control" placeholder="Customer name..." v-model="form.customerName">
+                                <multiselect v-model="value" track-by="name" label="name" @input="setCustomer"
+                                placeholder="Select customer" :options="options" :searchable="true">
+                                </multiselect>
+                                <!-- <input :class="{'is-invalid' : form.errors.has('customerName')}" type="text" class="form-control" placeholder="Customer name..." v-model="form.customerName"> -->
                                 <HasError :form="form" field="customerName" />
                             </div>
 
@@ -121,8 +124,12 @@
 </template>
 
 <script>
-export default {
+import Multiselect from 'vue-multiselect'
 
+export default {
+    components: {
+        Multiselect,
+    },
     data() {
         return {
 
@@ -151,10 +158,32 @@ export default {
                 customerPhoto: '',
 
             }),
+
+            options: [],
+
+            value: "",
         }
     },
 
     methods : {
+
+        setCustomer() {
+            this.form.customerName = this.value.name;
+            this.form.customerLocation = this.value.address;
+            this.form.customerNumber = this.value.phone;
+        },
+
+        getCustomerList() {
+
+            axios.get("/admin/api/get-all-customers-list?count_customer=all").then(resp=>{
+                return resp.data;
+            }).then(data=>{
+                this.options = data;
+            }).catch(err=>{
+                console.error(err.response.data);
+            })
+
+        },
 
         machinePhoto(e) {
 
@@ -201,11 +230,14 @@ export default {
 
         }
 
+    },
+    mounted() {
+        this.getCustomerList();
     }
 
 }
 </script>
-
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
 
 </style>

@@ -19,9 +19,16 @@ class CustomerDataController extends Controller
     // Get list
     public function getList(Request $req)
     {
-        $customers = Customer::orderBy("id","desc")
-        ->withCount("machine")
-        ->paginate(15);
+        if($req->count_customer == "all")
+        {
+            $customers = Customer::orderBy("name","asc")->get(["id","name","phone","address"]);
+        }
+        else
+        {
+            $customers = Customer::orderBy("id","desc")
+            ->withCount("machine")
+            ->paginate(15);
+        }
 
         return response()->json($customers);
     }
