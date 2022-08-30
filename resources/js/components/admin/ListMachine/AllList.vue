@@ -26,7 +26,7 @@
                     <form @submit.prevent="searchMachine()" class="col-md-6">
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" 
-                            placeholder="Search by top sl, bottom sl, label, customer name, phone..." v-model="searchText">
+                            placeholder="Search by machine title, top sl, bottom sl, label, customer name, phone..." v-model="searchText">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-success"><i class="fas fa-search"></i></button>
                             </div>

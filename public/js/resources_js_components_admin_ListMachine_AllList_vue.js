@@ -338,7 +338,7 @@ var render = function () {
                     attrs: {
                       type: "text",
                       placeholder:
-                        "Search by top sl, bottom sl, label, customer name, phone...",
+                        "Search by machine title, top sl, bottom sl, label, customer name, phone...",
                     },
                     domProps: { value: _vm.searchText },
                     on: {

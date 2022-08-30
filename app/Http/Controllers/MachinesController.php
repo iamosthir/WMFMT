@@ -86,10 +86,13 @@ class MachinesController extends Controller
             else
             {
                 $machines = Machines::orderBy("id", "desc")
-                ->where("top_sl",$search)->orWhere("bottom_sl",$search)
-                ->orWhere("label_number")->orWhere("model",$search)
-                ->orWhere("customer_name","%$search%")
-                ->orWhere("customer_phone")
+                ->orWhere("title","like","%$search%")
+                ->orWhere("customer_name","like","%$search%")
+                ->orWhere(function($q) use($search){
+                    $q->where("top_sl",$search)->orWhere("bottom_sl",$search)
+                    ->orWhere("label_number")->orWhere("model",$search)
+                    ->orWhere("customer_phone");
+                })
                 ->with("lastService:id,machine_id,created_at")
                 ->paginate(20);
             }
