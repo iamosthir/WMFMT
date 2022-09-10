@@ -111,6 +111,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -416,6 +417,15 @@ var render = function () {
                                                   }),
                                                   _vm._v(" View"),
                                                 ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "button",
+                                                {
+                                                  staticClass:
+                                                    "btn btn-sm btn-warning",
+                                                },
+                                                [_vm._v("Create Parts Report")]
                                               ),
                                             ],
                                             1
