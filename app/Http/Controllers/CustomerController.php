@@ -48,5 +48,4 @@ class CustomerController extends Controller
         return response()->json($machines);
     }
 
-
 }

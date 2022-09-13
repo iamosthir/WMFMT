@@ -420,10 +420,17 @@ var render = function () {
                                               ),
                                               _vm._v(" "),
                                               _c(
-                                                "button",
+                                                "a",
                                                 {
                                                   staticClass:
                                                     "btn btn-sm btn-warning",
+                                                  attrs: {
+                                                    target: "_blank",
+                                                    href:
+                                                      "/admin/api/customer/" +
+                                                      customer.id +
+                                                      "/create-parts-report",
+                                                  },
                                                 },
                                                 [_vm._v("Create Parts Report")]
                                               ),

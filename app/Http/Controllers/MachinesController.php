@@ -35,6 +35,7 @@ class MachinesController extends Controller
         $machine->bottom_sl = $req->bottom;
         $machine->top_sl = $req->top;
         $machine->label_number = $req->label;
+        $machine->customerId = $req->customerId;
         $machine->customer_name = $req->customerName;
         $machine->customer_location = $req->customerLocation;
         $machine->customer_phone = $req->customerNumber;
@@ -55,18 +56,17 @@ class MachinesController extends Controller
             $machine->customer_photo = $customer_photo_file_name;
         }
 
-        if(!Customer::where("phone",$req->customerNumber)->first())
-        {
-            $customer = new Customer();
-            $customer->name = $req->customerName;
-            $customer->phone = $req->customerNumber;
-            $customer->password = bcrypt("password##123");
-            $customer->save();
-        }
-        
+        // if(!Customer::where("phone",$req->customerNumber)->first())
+        // {
+        //     $customer = new Customer();
+        //     $customer->name = $req->customerName;
+        //     $customer->phone = $req->customerNumber;
+        //     $customer->password = bcrypt("password##123");
+        //     $customer->save();
+        // }
+
         $machine->save();
         
-
         return [
             "status" => "ok",
             "msg" => "Data was added successfully"

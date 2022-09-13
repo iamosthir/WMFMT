@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Machines;
+use App\Models\ServiceHistory;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +16,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get("/apply-customer-id",function(){
+    $history = ServiceHistory::get();
+    foreach($history as $his)
+    {
+        $his->customer_id = Machines::find($his->machine_id)->customer_id;
+        $his->save();
+    }
+    return "Done";
+});
 
 Route::get("/setup-db",function(){
     Artisan::call("migrate");
@@ -168,6 +180,10 @@ Route::group(["prefix"=>"admin", "middleware" => "auth"],function(){
         Route::post("/import-from-sheet","CustomerDataController@importSheet");
 
         Route::get("/get-customer-machines","CustomerDataController@getMachine");
+
+        Route::get("/customer/{id}/create-parts-report","CustomerDataController@createPartsReport");
+        
+        Route::get("/customer/{id}/send-parts-report","CustomerDataController@sendPdf");
 
     });
 

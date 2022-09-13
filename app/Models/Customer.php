@@ -45,6 +45,6 @@ class Customer extends Authenticatable
     // Get machine count
     public function machine()
     {
-        return $this->hasMany(Machines::class,"customer_phone","phone");
+        return $this->hasMany(Machines::class,"customer_id","id");
     }
 }

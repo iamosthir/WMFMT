@@ -79,7 +79,7 @@
                                                 </td>
                                                 <td>
                                                     <router-link :to="{name: 'customer.profile', params:{ customerId: customer.id}}" class="btn btn-sm btn-success"><i class="fas fa-eye"></i> View</router-link>
-                                                    <button class="btn btn-sm btn-warning">Create Parts Report</button>
+                                                    <a target="_blank" :href="`/admin/api/customer/${customer.id}/create-parts-report`" class="btn btn-sm btn-warning">Create Parts Report</a>
                                                 </td>
                                             </tr>
                                         </template>

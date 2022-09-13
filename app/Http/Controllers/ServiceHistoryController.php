@@ -33,6 +33,7 @@ class ServiceHistoryController extends Controller
         $data = new ServiceHistory();
 
         $data->machine_id = $req->machineId;
+        $data->customer_id = Machines::find($req->machineId)->customer_id;
         $data->serviceDate = $req->serviceDate;
         $data->serviceType = $req->serviceType;
         $data->description = $req->desc;

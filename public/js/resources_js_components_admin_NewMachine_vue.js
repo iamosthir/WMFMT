@@ -156,7 +156,8 @@ __webpack_require__.r(__webpack_exports__);
         customerName: '',
         customerLocation: '',
         customerNumber: '',
-        customerPhoto: ''
+        customerPhoto: '',
+        customerId: ''
       }),
       options: [],
       value: ""
@@ -167,6 +168,7 @@ __webpack_require__.r(__webpack_exports__);
       this.form.customerName = this.value.name;
       this.form.customerLocation = this.value.address;
       this.form.customerNumber = this.value.phone;
+      this.form.customerId = this.value.id;
     },
     getCustomerList: function getCustomerList() {
       var _this = this;

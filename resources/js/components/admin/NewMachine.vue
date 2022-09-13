@@ -157,6 +157,8 @@ export default {
 
                 customerPhoto: '',
 
+                customerId: '',
+
             }),
 
             options: [],
@@ -171,6 +173,7 @@ export default {
             this.form.customerName = this.value.name;
             this.form.customerLocation = this.value.address;
             this.form.customerNumber = this.value.phone;
+            this.form.customerId = this.value.id;
         },
 
         getCustomerList() {
@@ -220,7 +223,6 @@ export default {
                 if(data.status == "ok") {
                     swal.fire("Success",data.msg,"success");
                     this.form.reset();
-
                     $('input[type="file"]').val("");
                     
                 }

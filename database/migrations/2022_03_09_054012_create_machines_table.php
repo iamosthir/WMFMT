@@ -16,6 +16,7 @@ class CreateMachinesTable extends Migration
         Schema::create('machines', function (Blueprint $table) {
             $table->id();
             $table->string("title")->nullable();
+            $table->integer("customer_id");
             $table->string("manufacturer");
             $table->string("model");
             $table->string("bottom_sl");

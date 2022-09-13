@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Machines;
+use App\Models\ServiceHistory;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Importer;
+use PDF;
+use Swift_Attachment;
 
 class CustomerDataController extends Controller
 {
@@ -192,4 +196,73 @@ class CustomerDataController extends Controller
 
         return response()->json($machines);
     }
+
+    public function createPartsReport($id)
+    {
+        if($customer = Customer::find($id))
+        {
+            $datas = ServiceHistory::where("customer_id",$id)->where("needParts","yes")
+            ->where("partsInstalled","no")->with("machine:id,title,manufacturer,model,bottom_sl,top_sl,label_number")->get();
+
+            return view("admin.parts-report")->with(compact(
+                "customer",
+                "datas"
+            ));
+        }
+        else
+        {
+            abort(404);
+        }
+    }
+
+    public function sendPdf($id)
+    {
+        if($customer = Customer::find($id))
+        {
+            if($customer->email != "" || filter_var($customer->email,FILTER_VALIDATE_EMAIL))
+            {
+                try {
+                    $datas = ServiceHistory::where("customer_id",$id)->where("needParts","yes")
+                    ->where("partsInstalled","no")->with("machine:id,title,manufacturer,model,bottom_sl,top_sl,label_number")->get();
+
+                    $pdfData = [
+                        "customer" => $customer,
+                        "datas" => $datas
+                    ];
+                    $name = "Parts_report_".$customer->name."_".Carbon::now()->format("Y-m-d").".pdf";
+                    $pdf = PDF::loadView("admin.parts-pdf-report",$pdfData)->save(public_path("uploads/pdf/$name"));
+
+                    $html = "<p>Hello $customer->name,</p><p>We have created a report for your machines which needs maintanance and parts. Kindly check the attached report</p>";
+
+                    Mail::send(array(), array(), function($msg) use($customer,$html,$name){
+                        $msg->to($customer->email)
+                        ->subject("Parts report")
+                        ->setBody($html,'text/html')
+                        ->attach(Swift_Attachment::fromPath(public_path("uploads/pdf/$name")));
+                    });
+
+                    unlink(public_path("uploads/pdf/$name"));
+                    
+                    session()->flash("success","Email sent");
+                    return redirect()->back();
+
+                }
+                catch(Exception $e) {
+                    session()->flash("error",$e->getMessage());
+                    return redirect()->back();
+                }
+            }
+            else
+            {
+                session()->flash("error","Client email is not valid");
+                return redirect()->back();
+            }
+            
+        }
+        else
+        {
+            abort(404);
+        }
+    }
+
 }
