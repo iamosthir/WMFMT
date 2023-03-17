@@ -30,7 +30,7 @@ products and theires services and maintenance records for a specific business
 <br>
 super@admin.com
 <br>
-pass: wmfmtadmin2022
+pass: 
 
 
 <h1><b>Change Logs</b></h1>
